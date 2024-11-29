@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import BooksRow from "./book";
+import AddBook from "./bookadd";
 
 export default function Page() {
   const [booksArr, setBooksArr] = useState([]);
@@ -17,6 +18,9 @@ export default function Page() {
       {booksArr?.map((book) => (
         <BooksRow book={book} />
       ))}
+      <div>
+        <AddBook books={booksArr}></AddBook>
+      </div>
     </div>
   );
 }

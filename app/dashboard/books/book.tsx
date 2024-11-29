@@ -2,7 +2,12 @@
 import { useState } from "react";
 import { Book } from "@/app/lib/definitions";
 
-export default function BooksRow({ book }: { book: Book }) {
+interface BookProps {
+  onChange: () => void;
+  book: Book;
+}
+
+export default function BooksRow({ onChange, book }: { onChange: () => void; book: Book }) {
   const [name, setName] = useState(book.name);
   const [description, setDescription] = useState(book.description);
   const [editing, setEditing] = useState(false);
@@ -25,6 +30,7 @@ export default function BooksRow({ book }: { book: Book }) {
       if (!response.ok) {
         throw new Error("Failed to update user");
       }
+      onChange();
     } catch (error) {
       console.error(error);
     }
@@ -53,6 +59,7 @@ export default function BooksRow({ book }: { book: Book }) {
       if (!response.ok) {
         throw new Error("Failed to update user");
       }
+      onChange();
     } catch (error) {
       console.error(error);
     }

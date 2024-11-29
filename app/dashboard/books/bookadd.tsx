@@ -3,7 +3,7 @@
 import { Book } from "@/app/lib/definitions";
 import { useState } from "react";
 
-export default function AddBook({ books }: { books: Book[] }) {
+export default function AddBook({ onChange }: { onChange: () => void }) {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
 
@@ -21,6 +21,9 @@ export default function AddBook({ books }: { books: Book[] }) {
       if (!response.ok) {
         throw new Error("Failed to create user");
       }
+      onChange();
+      setName("");
+      setDescription("");
     } catch (error) {
       console.error(error);
     }
@@ -33,6 +36,7 @@ export default function AddBook({ books }: { books: Book[] }) {
         <label className="block text-sm font-medium mb-1">Title</label>
         <input
           type="text"
+          value={name}
           style={{ width: "300px", height: "40px" }}
           className="w-full p-2 border rounded"
           onChange={(e) => setName(e.target.value)}
@@ -43,6 +47,7 @@ export default function AddBook({ books }: { books: Book[] }) {
         <label className="block text-sm font-medium mb-1">Description</label>
         <input
           style={{ width: "300px", height: "40px" }}
+          value={description}
           className="w-full p-2 border rounded"
           onChange={(e) => setDescription(e.target.value)}
           required

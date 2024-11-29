@@ -1,3 +1,22 @@
+"use client";
+import { useEffect, useState } from "react";
+import BooksRow from "./book";
+
 export default function Page() {
-  return <p>Books Page</p>;
+  const [booksArr, setBooksArr] = useState([]);
+
+  useEffect(() => {
+    (async () => {
+      const result = await fetch("http://localhost:5001");
+      setBooksArr(await result.json());
+    })();
+  }, []); // Dependency array is empty, so this runs only once.
+
+  return (
+    <div>
+      {booksArr?.map((book) => (
+        <BooksRow book={book} />
+      ))}
+    </div>
+  );
 }

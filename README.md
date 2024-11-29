@@ -1,5 +1,8 @@
-## Next.js App Router Course - Starter
+## Next.js Crud app
 
-This is the starter template for the Next.js App Router Course. It contains the starting code for the dashboard application.
+This app manages list of books.\
+Operations supported - Add, Edit, Delete
 
-For more information, see the [course curriculum](https://nextjs.org/learn) on the Next.js Website.
+Backend for books is upported using node and json file\
+Backend directory - node_crud\
+Command to run backend - node index.js

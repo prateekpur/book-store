@@ -12,4 +12,4 @@ To start frontend application:
 ## Backend
 Backend for books is upported using node. To start the backend application:
 1. `cd backend`
-2. `yarn start`
+2. `node start`

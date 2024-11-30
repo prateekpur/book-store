@@ -1,8 +1,14 @@
-## Next.js Crud app
+# Next.js Crud app
 
-This app manages list of books.\
-Operations supported - Add, Edit, Delete
+This simple app demonstrates the use of NextJS dfor developing React applications. This app manages list of books.
 
-Backend for books is upported using node and json file
-Backend directory - node_crud\
-Command to run backend - node index.js
+Operations supported for books - Add, Edit, Delete.
+
+## Frontend
+To start frontend application:
+1. `yarn start`
+
+## Backend
+Backend for books is upported using node. To start the backend application:
+1. `cd node_crud`
+2. `yarn index.js`

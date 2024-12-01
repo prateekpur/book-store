@@ -3,13 +3,11 @@ import { useEffect, useState } from "react";
 import BooksRow from "./book";
 import AddBook from "./bookadd";
 import { Book } from "@/app/lib/definitions";
-import { Provider, useSelector } from "react-redux";
+import { Provider } from "react-redux";
 import { store } from "@/app/store";
-import { RootState, AppDispatch } from "../../../app/store";
 
 export default function Page() {
   const [booksArr, setBooksArr] = useState([]);
-  //const { books } = useSelector((state: RootState) => state);
 
   const handleSubmit = async () => {
     console.log("Page on change");

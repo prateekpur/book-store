@@ -36,18 +36,15 @@ const booksSlice = createSlice({
         state = action.payload;
       })
       .addCase(fetchBooks.rejected, (state, action) => {})
-      // Add post
       .addCase(addBook.fulfilled, (state, action: PayloadAction<Book>) => {
         state.push(action.payload);
       })
-      // Update post
       .addCase(updateBook.fulfilled, (state, action: PayloadAction<Book>) => {
         const index = state.findIndex((book) => book.id === action.payload.id);
         if (index !== -1) {
           state[index] = action.payload;
         }
       })
-      // Delete post
       .addCase(deleteBook.fulfilled, (state, action: PayloadAction<string>) => {
         state = state.filter((book) => book.id !== action.payload);
       });

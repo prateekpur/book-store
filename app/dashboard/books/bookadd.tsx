@@ -1,8 +1,6 @@
 "use client";
 
-import { Book } from "@/app/lib/definitions";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
 import { useAppDispatch } from "../../hooks";
 import { addBook, fetchBooks } from "../../features/bookSlice";
 import { v4 as uuidv4 } from "uuid";
@@ -19,16 +17,6 @@ export default function AddBook({ onChange }: { onChange: () => void }) {
     const id = uuidv4();
     const book = { id, name, description };
     try {
-      /*const response = await fetch(`http://localhost:5001`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(book),
-      });
-      if (!response.ok) {
-        throw new Error("Failed to create user");
-      }*/
       const book1 = { id: uuidv4(), name, description };
       dispatch(addBook(book1))
         .unwrap()

@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { Book } from "@/app/lib/definitions";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState, AppDispatch } from "../../../app/store";
-import { fetchBooks, addBook, updateBook, deleteBook } from "@/app/features/bookSlice";
+import { fetchBooks, updateBook, deleteBook } from "@/app/features/bookSlice";
 
 interface BookProps {
   onChange: () => void;
@@ -12,7 +12,6 @@ interface BookProps {
 
 export default function BooksRow({ onChange, book }: { onChange: () => void; book: Book }) {
   const dispatch = useDispatch<AppDispatch>();
-  const { books } = useSelector((state: RootState) => state);
   const [name, setName] = useState(book.name);
   const [description, setDescription] = useState(book.description);
   const [editing, setEditing] = useState(false);
@@ -52,7 +51,6 @@ export default function BooksRow({ onChange, book }: { onChange: () => void; boo
   };
 
   const getBooks = async () => {
-    console.log("Getting books");
     dispatch(fetchBooks());
   };
 

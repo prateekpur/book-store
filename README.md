@@ -6,10 +6,9 @@ Operations supported for books - Add, Edit, Delete.
 
 ## Frontend
 To start frontend application:
-1. `cd frontend`
-2. `yarn dev`
+1. `npm run dev`
 
 ## Backend
 Backend for books is upported using node. To start the backend application:
-1. `cd backend`
-2. `node start`
+1. `cd node_crud`
+2. `node index.js`

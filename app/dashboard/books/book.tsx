@@ -18,10 +18,6 @@ export default function BooksRow({ onChange, book }: { onChange: () => void; boo
   const [editName, setEditName] = useState(name);
   const [editDescription, setEditDescription] = useState(description);
 
-  useEffect(() => {
-    dispatch(fetchBooks());
-  }, [dispatch]);
-
   const onEdit = () => {
     setEditing(true);
   };
@@ -37,15 +33,7 @@ export default function BooksRow({ onChange, book }: { onChange: () => void; boo
     setName(editName);
     setDescription(editDescription);
 
-    dispatch(updateBook({ id: book.id, name: editName, description: editDescription }))
-      .unwrap()
-      .then(() => {
-        console.log("fetching all books");
-        dispatch(fetchBooks());
-      })
-      .catch((error) => {
-        console.error("Failed to update the post:", error);
-      });
+    dispatch(updateBook({ id: book.id, name: editName, description: editDescription }));
     onChange();
     setEditing(false);
   };

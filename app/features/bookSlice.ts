@@ -7,6 +7,7 @@ const API_URL = "http://localhost:5001";
 
 export const fetchBooks = createAsyncThunk("books/fetchBooks", async () => {
   const response = await axios.get<Book[]>(API_URL);
+  console.log("fetchBooks : ", response.data);
   return response.data;
 });
 
@@ -33,20 +34,25 @@ const booksSlice = createSlice({
     builder
       .addCase(fetchBooks.pending, (state) => {})
       .addCase(fetchBooks.fulfilled, (state, action: PayloadAction<Book[]>) => {
+        console.log("fetch reducer fulfilled", action.payload);
         state = action.payload;
+        return state;
       })
       .addCase(fetchBooks.rejected, (state, action) => {})
       .addCase(addBook.fulfilled, (state, action: PayloadAction<Book>) => {
         state.push(action.payload);
+        return state;
       })
       .addCase(updateBook.fulfilled, (state, action: PayloadAction<Book>) => {
         const index = state.findIndex((book) => book.id === action.payload.id);
         if (index !== -1) {
           state[index] = action.payload;
         }
+        return state;
       })
       .addCase(deleteBook.fulfilled, (state, action: PayloadAction<string>) => {
         state = state.filter((book) => book.id !== action.payload);
+        return state;
       });
   },
 });

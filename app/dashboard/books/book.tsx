@@ -1,6 +1,9 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Book } from "@/app/lib/definitions";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState, AppDispatch } from "../../../app/store";
+import { fetchBooks, addBook, updateBook, deleteBook } from "@/app/features/bookSlice";
 
 interface BookProps {
   onChange: () => void;
@@ -8,62 +11,49 @@ interface BookProps {
 }
 
 export default function BooksRow({ onChange, book }: { onChange: () => void; book: Book }) {
+  const dispatch = useDispatch<AppDispatch>();
+  const { books } = useSelector((state: RootState) => state);
   const [name, setName] = useState(book.name);
   const [description, setDescription] = useState(book.description);
   const [editing, setEditing] = useState(false);
   const [editName, setEditName] = useState(name);
   const [editDescription, setEditDescription] = useState(description);
 
+  useEffect(() => {
+    dispatch(fetchBooks());
+  }, [dispatch]);
+
   const onEdit = () => {
     setEditing(true);
   };
 
   const handleDelete = async () => {
-    try {
-      const response = await fetch(`http://localhost:5001/${book.id}`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to update user");
-      }
-      onChange();
-    } catch (error) {
-      console.error(error);
-    }
+    dispatch(deleteBook(book.id)).catch((error) =>
+      console.error("Failed to delete the book:", error)
+    );
+    onChange();
   };
 
   const handleUpdate = async () => {
     setName(editName);
     setDescription(editDescription);
 
-    const jsonObject = {
-      name: editName,
-      description: editDescription,
-    };
-    const jsonString = JSON.stringify(jsonObject);
-    setName(editName);
-    setDescription(editDescription);
-    try {
-      const response = await fetch(`http://localhost:5001/${book.id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(jsonObject),
+    dispatch(updateBook({ id: book.id, name: editName, description: editDescription }))
+      .unwrap()
+      .then(() => {
+        console.log("fetching all books");
+        dispatch(fetchBooks());
+      })
+      .catch((error) => {
+        console.error("Failed to update the post:", error);
       });
-
-      if (!response.ok) {
-        throw new Error("Failed to update user");
-      }
-      onChange();
-    } catch (error) {
-      console.error(error);
-    }
+    onChange();
     setEditing(false);
+  };
+
+  const getBooks = async () => {
+    console.log("Getting books");
+    dispatch(fetchBooks());
   };
 
   return (

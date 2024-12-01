@@ -1,11 +1,15 @@
-"use client";
+'use client';
 
-import "@/app/ui/global.css";
-import { inter } from "@/app/ui/fonts";
-import { store } from "@/app/store";
-import { Provider, useSelector } from "react-redux";
+import '@/app/ui/global.css';
+import { inter } from '@/app/ui/fonts';
+import { store } from '@/app/store';
+import { Provider, useSelector } from 'react-redux';
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <Provider store={store}>
       <html lang="en">

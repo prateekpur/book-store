@@ -1,16 +1,22 @@
-"use client";
-import { useState, useEffect } from "react";
-import { Book } from "@/app/lib/definitions";
-import { useSelector, useDispatch } from "react-redux";
-import { RootState, AppDispatch } from "../../../app/store";
-import { fetchBooks, updateBook, deleteBook } from "@/app/features/bookSlice";
+'use client';
+import { useState, useEffect } from 'react';
+import { Book } from '@/app/lib/definitions';
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState, AppDispatch } from '../../../app/store';
+import { fetchBooks, updateBook, deleteBook } from '@/app/features/bookSlice';
 
 interface BookProps {
   onChange: () => void;
   book: Book;
 }
 
-export default function BooksRow({ onChange, book }: { onChange: () => void; book: Book }) {
+export default function BooksRow({
+  onChange,
+  book,
+}: {
+  onChange: () => void;
+  book: Book;
+}) {
   const dispatch = useDispatch<AppDispatch>();
   const [name, setName] = useState(book.name);
   const [description, setDescription] = useState(book.description);
@@ -24,7 +30,7 @@ export default function BooksRow({ onChange, book }: { onChange: () => void; boo
 
   const handleDelete = async () => {
     dispatch(deleteBook(book.id)).catch((error) =>
-      console.error("Failed to delete the book:", error)
+      console.error('Failed to delete the book:', error)
     );
     onChange();
   };
@@ -33,7 +39,9 @@ export default function BooksRow({ onChange, book }: { onChange: () => void; boo
     setName(editName);
     setDescription(editDescription);
 
-    dispatch(updateBook({ id: book.id, name: editName, description: editDescription }));
+    dispatch(
+      updateBook({ id: book.id, name: editName, description: editDescription })
+    );
     onChange();
     setEditing(false);
   };
@@ -67,8 +75,8 @@ export default function BooksRow({ onChange, book }: { onChange: () => void; boo
                     className="bg-blue-500 text-white px-3 py-1 rounded"
                     onClick={handleUpdate}
                   >
-                    {" "}
-                    Save{" "}
+                    {' '}
+                    Save{' '}
                   </button>
                 </div>
               ) : (
@@ -76,7 +84,10 @@ export default function BooksRow({ onChange, book }: { onChange: () => void; boo
                   <h3 className="font-semibold">{book.id}</h3>
                   <p className="text-gray-600">{book.name}</p>
                   <p className="text-gray-600">{book.description}</p>
-                  <button className="bg-blue-500 text-white px-3 py-1 rounded" onClick={onEdit}>
+                  <button
+                    className="bg-blue-500 text-white px-3 py-1 rounded"
+                    onClick={onEdit}
+                  >
                     Edit
                   </button>
                   <button

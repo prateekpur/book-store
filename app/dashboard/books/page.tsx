@@ -1,24 +1,20 @@
-"use client";
-import { useEffect, useState } from "react";
-import BooksRow from "./book";
-import AddBook from "./bookadd";
-import { Book } from "@/app/lib/definitions";
-import { Provider, useSelector } from "react-redux";
-import { fetchAllBooks } from "@/app/lib/data";
-import { useReducer } from "react";
-import { useAppDispatch } from "../../hooks";
-import { fetchBooks } from "@/app/features/bookSlice";
+'use client';
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+
+import { Book } from '../../lib/definitions';
+import { RootState } from '../../store';
+import { fetchBooks } from '../../features/bookSlice';
+import { useAppDispatch } from '../../hooks';
+
+import AddBook from './addBook';
+import BooksRow from './book';
 
 export default function Page() {
-  const booksArr = useSelector((state: { books: Book[] }) => {
-    console.log(state);
-    return state.books;
-  });
-  console.log("Books Page", booksArr);
+  const bookArray = useSelector((state: RootState) => state.books);
   const dispatch = useAppDispatch();
 
-  const handleSubmit = async () => {
-    console.log(" Books page before fetch");
+  const handleSubmit = () => {
     dispatch(fetchBooks());
   };
 
@@ -28,7 +24,7 @@ export default function Page() {
 
   return (
     <div>
-      {booksArr?.map((book: Book) => (
+      {bookArray?.map((book: Book) => (
         <BooksRow key={book.id} onChange={handleSubmit} book={book} />
       ))}
       <div>

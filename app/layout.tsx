@@ -1,9 +1,9 @@
 'use client';
 
-import '@/app/ui/global.css';
-import { inter } from '@/app/ui/fonts';
+import '../app/ui/dashboard/global.css';
+import { inter } from './dashboard/ui/fonts';
 import { store } from '@/app/store';
-import { Provider, useSelector } from 'react-redux';
+import { Provider } from 'react-redux';
 
 export default function RootLayout({
   children,

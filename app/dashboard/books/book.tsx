@@ -1,14 +1,11 @@
-'use client';
-import { useState, useEffect } from 'react';
-import { Book } from '@/app/lib/definitions';
-import { useSelector, useDispatch } from 'react-redux';
-import { RootState, AppDispatch } from '../../../app/store';
-import { fetchBooks, updateBook, deleteBook } from '@/app/features/bookSlice';
+/* eslint-disable no-undef */
 
-interface BookProps {
-  onChange: () => void;
-  book: Book;
-}
+'use client';
+import { useState } from 'react';
+import { Book } from '@/app/lib/definitions';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../../../app/store';
+import { updateBook, deleteBook } from '@/app/features/bookSlice';
 
 export default function BooksRow({
   onChange,
@@ -44,10 +41,6 @@ export default function BooksRow({
     );
     onChange();
     setEditing(false);
-  };
-
-  const getBooks = async () => {
-    dispatch(fetchBooks());
   };
 
   return (

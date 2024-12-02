@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 'use client';
 
 import { useState } from 'react';
@@ -9,19 +10,17 @@ import { useAppDispatch } from '../../hooks';
 export default function AddBook({ onChange }: { onChange: () => void }) {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
-  const [form, setForm] = useState({ name: '', description: '' });
 
   const dispatch = useAppDispatch();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const id = uuidv4();
-    const book = { id, name, description };
     try {
-      const book1 = { id: uuidv4(), name, description };
-      dispatch(addBook(book1))
+      const book = { id: uuidv4(), name, description };
+      dispatch(addBook(book))
         .unwrap()
         .then(() => {
+           
           console.log('fetching all books');
           dispatch(fetchBooks());
         });
@@ -29,6 +28,7 @@ export default function AddBook({ onChange }: { onChange: () => void }) {
       setName('');
       setDescription('');
     } catch (error) {
+       
       console.error(error);
     }
   };

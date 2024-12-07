@@ -1,44 +1,31 @@
 'use client';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { AppDispatch } from '@/app/state/store';
 import { Book } from '@/app/types';
-import { updateBook, deleteBook } from '@/app/state/bookSlice';
+import { updateBook, deleteBook, fetchBooks } from '@/app/state/bookSlice';
 
-export default function BooksRow({
-  onChange,
-  book,
-}: {
-  onChange: () => void;
-  book: Book;
-}) {
+export default function BooksRow({ book }: { book: Book }) {
   const dispatch = useDispatch<AppDispatch>();
   const [name, setName] = useState(book.name);
   const [description, setDescription] = useState(book.description);
   const [editing, setEditing] = useState(false);
-  const [editName, setEditName] = useState(name);
-  const [editDescription, setEditDescription] = useState(description);
 
   const onEdit = () => {
     setEditing(true);
   };
 
-  const handleDelete = async () => {
+  const handleDelete = useCallback(() => {
     dispatch(deleteBook(book.id));
-    onChange();
-  };
+    dispatch(fetchBooks());
+  }, [dispatch, book.id]);
 
-  const handleUpdate = async () => {
-    setName(editName);
-    setDescription(editDescription);
-
-    dispatch(
-      updateBook({ id: book.id, name: editName, description: editDescription })
-    );
-    onChange();
+  const handleUpdate = useCallback(() => {
+    dispatch(updateBook({ id: book.id, name, description }));
+    dispatch(fetchBooks());
     setEditing(false);
-  };
+  }, [dispatch, book.id, name, description]);
 
   return (
     <div>
@@ -52,21 +39,20 @@ export default function BooksRow({
                   <input
                     type="textbox"
                     className="w-full p-2 border rounded"
-                    value={editName}
-                    onChange={(e) => setEditName(e.target.value)}
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
                   ></input>
                   <input
                     type="textbox"
                     className="w-full p-2 border rounded"
-                    value={editDescription}
-                    onChange={(e) => setEditDescription(e.target.value)}
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
                   ></input>
                   <button
                     className="bg-blue-500 text-white px-3 py-1 rounded"
                     onClick={handleUpdate}
                   >
-                    {' '}
-                    Save{' '}
+                    Save
                   </button>
                 </div>
               ) : (

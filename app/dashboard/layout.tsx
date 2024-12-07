@@ -1,5 +1,4 @@
-/* eslint-disable no-undef */
-import SideNav from '../ui/sidenav';
+import SideNav from "../ui/sidenav";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (

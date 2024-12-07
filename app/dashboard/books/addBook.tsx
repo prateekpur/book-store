@@ -1,35 +1,27 @@
-/* eslint-disable no-undef */
 'use client';
 
-import { useState } from 'react';
+import { FormEvent, useCallback, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
 import { useAppDispatch } from '@/app/state/state-hooks';
 import { addBook, fetchBooks } from '@/app/state/bookSlice';
 
-export default function AddBook({ onChange }: { onChange: () => void }) {
+export default function AddBook() {
+  const dispatch = useAppDispatch();
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
 
-  const dispatch = useAppDispatch();
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    try {
+  const handleSubmit = useCallback(
+    (e: FormEvent) => {
+      e.preventDefault();
       const book = { id: uuidv4(), name, description };
-      dispatch(addBook(book))
-        .unwrap()
-        .then(() => {
-          dispatch(fetchBooks());
-        });
-      onChange();
-      setName('');
+      dispatch(addBook(book));
+      dispatch(fetchBooks());
       setDescription('');
-    } catch (error) {
-       
-      console.error(error);
-    }
-  };
+      setName('');
+    },
+    [dispatch, name, description, setDescription, setName]
+  );
 
   return (
     <form onSubmit={handleSubmit} className="p-4 bg-white rounded-lg shadow">

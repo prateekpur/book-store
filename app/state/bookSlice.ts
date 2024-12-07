@@ -3,7 +3,7 @@ import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 
 import { Book } from '../types';
 
-const initialState: Book[] = [{ id: '1', name: '1', description: '1' }];
+const initialState: Book[] = [];
 const API_URL = 'http://localhost:5001';
 
 export const fetchBooks = createAsyncThunk('books/fetchBooks', async () => {
@@ -44,12 +44,10 @@ const booksSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchBooks.pending, () => {})
       .addCase(fetchBooks.fulfilled, (state, action: PayloadAction<Book[]>) => {
         state = action.payload;
         return state;
       })
-      .addCase(fetchBooks.rejected, () => {})
       .addCase(addBook.fulfilled, (state, action: PayloadAction<Book>) => {
         state.push(action.payload);
         return state;

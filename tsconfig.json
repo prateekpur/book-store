@@ -31,7 +31,7 @@
     ".next/types/**/*.ts",
     "app/lib/placeholder-data.ts",
     "scripts/seed.js",
-    "app/page.tsx_bak", "jest.setup.js",
+    "app/page.tsx_bak", "jest.setup.ts",
   ],
   "exclude": ["node_modules"]
 }

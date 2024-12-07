@@ -1,0 +1,55 @@
+{
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "next build",
+    "dev": "next dev --turbo",
+    "start": "next start",
+    "lint": "npx eslint '**/*.{ts,tsx}'",
+    "lint:fix": "npx eslint '**/*.{ts,tsx}' --fix",
+    "format": "prettier --write ."
+  },
+  "dependencies": {
+    "@heroicons/react": "^2.1.4",
+    "@reduxjs/toolkit": "^2.4.0",
+    "@tailwindcss/forms": "^0.5.7",
+    "@vercel/postgres": "^0.8.0",
+    "autoprefixer": "10.4.19",
+    "axios": "^1.7.8",
+    "bcrypt": "^5.1.1",
+    "clsx": "^2.1.1",
+    "next": "^15.0.0",
+    "next-auth": "5.0.0-beta.19",
+    "postcss": "8.4.38",
+    "react": "19.0.0-rc-cd22717c-20241013",
+    "react-dom": "19.0.0-rc-cd22717c-20241013",
+    "react-redux": "^9.1.2",
+    "tailwindcss": "3.4.4",
+    "typescript": "5.5.2",
+    "use-debounce": "^10.0.1",
+    "uuid": "^11.0.3",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
+    "@types/node": "20.14.8",
+    "@types/react": "npm:types-react@19.0.0-rc.1",
+    "@types/react-dom": "npm:types-react-dom@19.0.0-rc.1",
+    "@typescript-eslint/eslint-plugin": "^8.16.0",
+    "@typescript-eslint/parser": "^8.16.0",
+    "eslint": "^9.16.0",
+    "eslint-config-airbnb-typescript": "^18.0.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "eslint-plugin-simple-import-sort": "^12.1.1",
+    "prettier": "^3.4.1"
+  },
+  "pnpm": {
+    "overrides": {
+      "@types/react": "npm:types-react@19.0.0-rc.1",
+      "@types/react-dom": "npm:types-react-dom@19.0.0-rc.1"
+    }
+  },
+  "packageManager": "yarn@4.5.1+sha512.341db9396b6e289fecc30cd7ab3af65060e05ebff4b3b47547b278b9e67b08f485ecd8c79006b405446262142c7a38154445ef7f17c1d5d1de7d90bf9ce7054d"
+}

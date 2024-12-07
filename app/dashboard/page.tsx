@@ -1,5 +1,4 @@
-//import { Card } from '@/app/ui/dashboard/cards';
-import { lusitana } from './ui/fonts';
+import { lusitana } from '../ui/fonts';
 
 export default async function Page() {
   return (

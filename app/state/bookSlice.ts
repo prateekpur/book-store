@@ -1,16 +1,13 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-undef */
-import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import { Book } from '../lib/definitions';
 import axios from 'axios';
+import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
+
+import { Book } from '../types';
 
 const initialState: Book[] = [{ id: '1', name: '1', description: '1' }];
 const API_URL = 'http://localhost:5001';
 
 export const fetchBooks = createAsyncThunk('books/fetchBooks', async () => {
   const response = await axios.get<Book[]>(API_URL);
-  console.log('fetchBooks : ', response.data);
   return response.data;
 });
 
@@ -47,13 +44,12 @@ const booksSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchBooks.pending, (state) => {})
+      .addCase(fetchBooks.pending, () => {})
       .addCase(fetchBooks.fulfilled, (state, action: PayloadAction<Book[]>) => {
-        console.log('fetch reducer fulfilled', action.payload);
         state = action.payload;
         return state;
       })
-      .addCase(fetchBooks.rejected, (state, action) => {})
+      .addCase(fetchBooks.rejected, () => {})
       .addCase(addBook.fulfilled, (state, action: PayloadAction<Book>) => {
         state.push(action.payload);
         return state;
@@ -71,4 +67,5 @@ const booksSlice = createSlice({
       });
   },
 });
+
 export default booksSlice.reducer;

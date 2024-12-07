@@ -4,8 +4,8 @@
 import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
-import { addBook, fetchBooks } from '../../features/bookSlice';
-import { useAppDispatch } from '../../hooks';
+import { useAppDispatch } from '@/app/state/state-hooks';
+import { addBook, fetchBooks } from '@/app/state/bookSlice';
 
 export default function AddBook({ onChange }: { onChange: () => void }) {
   const [name, setName] = useState('');
@@ -20,8 +20,6 @@ export default function AddBook({ onChange }: { onChange: () => void }) {
       dispatch(addBook(book))
         .unwrap()
         .then(() => {
-           
-          console.log('fetching all books');
           dispatch(fetchBooks());
         });
       onChange();

@@ -2,11 +2,10 @@
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
-import { Book } from '../../lib/definitions';
-import { RootState } from '../../store';
-import { fetchBooks } from '../../features/bookSlice';
-import { useAppDispatch } from '../../hooks';
-
+import { RootState } from '@/app/state/store';
+import { fetchBooks } from '@/app/state/bookSlice';
+import { useAppDispatch } from '@/app/state/state-hooks';
+import { Book } from '../../types';
 import AddBook from './addBook';
 import BooksRow from './book';
 

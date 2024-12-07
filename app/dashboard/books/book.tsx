@@ -1,11 +1,10 @@
-/* eslint-disable no-undef */
-
 'use client';
 import { useState } from 'react';
-import { Book } from '@/app/lib/definitions';
 import { useDispatch } from 'react-redux';
-import { AppDispatch } from '../../../app/store';
-import { updateBook, deleteBook } from '@/app/features/bookSlice';
+
+import { AppDispatch } from '@/app/state/store';
+import { Book } from '@/app/types';
+import { updateBook, deleteBook } from '@/app/state/bookSlice';
 
 export default function BooksRow({
   onChange,
@@ -26,9 +25,7 @@ export default function BooksRow({
   };
 
   const handleDelete = async () => {
-    dispatch(deleteBook(book.id)).catch((error) =>
-      console.error('Failed to delete the book:', error)
-    );
+    dispatch(deleteBook(book.id));
     onChange();
   };
 

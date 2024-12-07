@@ -1,16 +1,14 @@
 'use client';
 
-import '../app/ui/dashboard/global.css';
-import { inter } from './dashboard/ui/fonts';
-import { store } from '@/app/store';
+import { ReactNode } from 'react';
 import { Provider } from 'react-redux';
 
-export default function RootLayout({
-  children,
-}: {
-  // eslint-disable-next-line no-undef
-  children: React.ReactNode;
-}) {
+import { inter } from './ui/fonts';
+
+import { store } from './state/store';
+import './global.css';
+
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <Provider store={store}>
       <html lang="en">

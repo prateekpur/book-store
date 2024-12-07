@@ -1,5 +1,7 @@
 {
   "compilerOptions": {
+    "jsx": "react-jsx", // Use JSX transformation for React 17+
+    "types": ["jest", "node"], // Include Jest types for type checking
     "target": "ES2017",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
@@ -11,7 +13,6 @@
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve",
     "incremental": true,
     "plugins": [
       {
@@ -30,7 +31,7 @@
     ".next/types/**/*.ts",
     "app/lib/placeholder-data.ts",
     "scripts/seed.js",
-    "app/page.tsx_bak"
+    "app/page.tsx_bak", "jest.setup.js",
   ],
   "exclude": ["node_modules"]
 }

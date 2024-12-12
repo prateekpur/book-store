@@ -1,8 +1,14 @@
 const Book = require("../models/book");
 
-exports.getAllBooks = (req, res) => {
+exports.getAllBooks = async (req, res) => {
+  Book.findAll();
+  const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+  await sleep(100);
   Book.findAll()
-    .then((books) => res.json(books))
+    .then((books) => {
+      console.log("get api :", books.length);
+      res.json(books);
+    })
     .catch((error) => res.status(500).json({ message: "Internal server error", error: error }));
 };
 

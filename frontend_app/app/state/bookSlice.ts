@@ -4,7 +4,7 @@ import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { Book } from '../types';
 
 const initialState: Book[] = [];
-const API_URL = 'http://localhost:5001';
+const API_URL = 'http://localhost:3000/book';
 
 export const fetchBooks = createAsyncThunk('books/fetchBooks', async () => {
   const response = await axios.get<Book[]>(API_URL);

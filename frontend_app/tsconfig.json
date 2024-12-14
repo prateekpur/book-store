@@ -1,22 +1,15 @@
 {
   "compilerOptions": {
-    "jsx": "preserve", // Use JSX transformation for React 17+
-    "types": [
-      "jest",
-      "node"
-    ], // Include Jest types for type checking
-    "target": "ES2017",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "jsx": "react-jsx", // Use JSX transformation for React 17+
+    "types": ["jest", "node"], // Include Jest types for type checking
+    "target": "ESNext",
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
     "noEmit": true,
     "esModuleInterop": true,
-    "module": "esnext",
+    "module": "commonjs",
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
@@ -28,9 +21,7 @@
     ],
     "baseUrl": ".",
     "paths": {
-      "@/*": [
-        "./*"
-      ]
+      "@/*": ["./*"]
     }
   },
   "include": [
@@ -41,9 +32,8 @@
     "app/lib/placeholder-data.ts",
     "scripts/seed.js",
     "app/page.tsx_bak",
-    "jest.setup.ts"
+    "jest.setup.ts",
+    "jest.config.js"
   ],
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["node_modules"]
 }

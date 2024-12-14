@@ -8,7 +8,6 @@ const API_URL = 'http://localhost:3000/book';
 
 export const fetchBooks = createAsyncThunk('books/fetchBooks', async () => {
   const response = await axios.get<Book[]>(API_URL);
-  console.log('Fetch books response : ', response);
   return response.data;
 });
 
@@ -16,8 +15,8 @@ export const addBook = createAsyncThunk(
   'books/addBook',
   async (newBook: Omit<Book, 'id'>) => {
     const response = await axios.post<Book>(API_URL, newBook);
-    console.log('Add book response :', response.data);
-    return response.data;
+    const response1 = await axios.get<Book[]>(API_URL);
+    return response1.data;
   }
 );
 
@@ -51,7 +50,7 @@ const booksSlice = createSlice({
         return state;
       })
       .addCase(addBook.fulfilled, (state, action: PayloadAction<Book>) => {
-        state.push(action.payload);
+        state = action.payload;
         return state;
       })
       .addCase(updateBook.fulfilled, (state, action: PayloadAction<Book>) => {

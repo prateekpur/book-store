@@ -1,9 +1,6 @@
 const Book = require("../models/book");
 
 exports.getAllBooks = async (req, res) => {
-  Book.findAll();
-  const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-  await sleep(100);
   Book.findAll()
     .then((books) => {
       console.log("get api :", books.length);
@@ -46,9 +43,9 @@ exports.updateBook = async (req, res) => {
   try {
     const book = await Book.findByPk(id);
 
-    if (!user) {
+    if (!book) {
       return res.status(404).send({
-        message: "User not found!",
+        message: "Book not found!",
       });
     } else {
       book.title = title;
@@ -56,7 +53,7 @@ exports.updateBook = async (req, res) => {
       await book.save();
 
       res.status(201).json({
-        message: "User updated successfully",
+        message: "Book updated successfully",
         UpdatedBook: Book,
       });
     }
@@ -86,6 +83,7 @@ exports.createBook = async (req, res) => {
       message: "Book registered successfully",
       newBook: newBook,
     });
+    console.log("Book controller - book created , ", newBook);
   } catch (error) {
     res.status(500).json({
       message: "An error occurred while registering the book",

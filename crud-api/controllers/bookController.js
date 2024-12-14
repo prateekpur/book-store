@@ -1,10 +1,6 @@
 const Book = require("../models/book");
 
 exports.getAllBooks = async (req, res) => {
-  //Book.findAll();
-  //TODO This sleep was added because fetch was not returning all books after post request, find a way to avoid sleep here
-  //const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-  //await sleep(100);
   Book.findAll()
     .then((books) => {
       console.log("get api :", books.length);

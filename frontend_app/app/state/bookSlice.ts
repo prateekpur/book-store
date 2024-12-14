@@ -14,9 +14,9 @@ export const fetchBooks = createAsyncThunk('books/fetchBooks', async () => {
 export const addBook = createAsyncThunk(
   'books/addBook',
   async (newBook: Omit<Book, 'id'>) => {
-    const response = await axios.post<Book>(API_URL, newBook);
-    const response1 = await axios.get<Book[]>(API_URL);
-    return response1.data;
+    await axios.post<Book>(API_URL, newBook);
+    const response_fetch = await axios.get<Book[]>(API_URL);
+    return response_fetch.data;
   }
 );
 
@@ -49,7 +49,7 @@ const booksSlice = createSlice({
         state = action.payload;
         return state;
       })
-      .addCase(addBook.fulfilled, (state, action: PayloadAction<Book>) => {
+      .addCase(addBook.fulfilled, (state, action: PayloadAction<Book[]>) => {
         state = action.payload;
         return state;
       })

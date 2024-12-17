@@ -34,10 +34,10 @@ exports.getBook = async (req, res) => {
 
 exports.updateBook = async (req, res) => {
   const id = parseInt(req.params.id);
-  const { title, description } = req.body;
-  if (!title || !description) {
+  const { name, description } = req.body;
+  if (!name || !description) {
     return res.status(400).send({
-      message: "Title , description cannot be empty!",
+      message: "Name , description cannot be empty!",
     });
   }
   try {
@@ -48,7 +48,7 @@ exports.updateBook = async (req, res) => {
         message: "Book not found!",
       });
     } else {
-      book.title = title;
+      book.title = name;
       book.description = description;
       await book.save();
 
@@ -66,16 +66,16 @@ exports.updateBook = async (req, res) => {
 };
 
 exports.createBook = async (req, res) => {
-  const { title, description } = req.body;
+  const { name, description } = req.body;
 
-  if (!title || !description) {
+  if (!name || !description) {
     return res.status(400).send({
       message: "Title and description cannot be empty!",
     });
   }
   try {
     const newBook = await Book.create({
-      title,
+      title: name,
       description,
     });
 
@@ -85,6 +85,7 @@ exports.createBook = async (req, res) => {
     });
     console.log("Book controller - book created , ", newBook);
   } catch (error) {
+    console.log(error.message);
     res.status(500).json({
       message: "An error occurred while registering the book",
     });

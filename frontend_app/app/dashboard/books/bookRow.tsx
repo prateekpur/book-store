@@ -22,7 +22,9 @@ export default function BooksRow({ book }: { book: Book }) {
   }, [dispatch, book.id]);
 
   const handleUpdate = useCallback(() => {
-    dispatch(updateBook({ id: book.id, name, description }));
+    const updatedBook = { id: book.id, name, description };
+    console.log('bookrow update', updatedBook);
+    dispatch(updateBook(updatedBook));
     dispatch(fetchBooks());
     setEditing(false);
   }, [dispatch, book.id, name, description]);

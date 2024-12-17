@@ -29,9 +29,8 @@ describe('BooksRow component', () => {
     await userEvent.type(textbox[1], 'Updated Book Description');
     const saveButton = screen.getAllByText('Save');
     await userEvent.click(saveButton[0]);
-    expect(mockDispatch).toHaveBeenCalledTimes(2);
+    expect(mockDispatch).toHaveBeenCalledTimes(1);
     expect(mockUpdateBook).toHaveBeenCalledTimes(1);
-    expect(mockFetchBooks).toHaveBeenCalledTimes(1);
   });
 
   it('invokes useDispatch and deleteBook when add button is clicked', async () => {
@@ -44,8 +43,7 @@ describe('BooksRow component', () => {
     render(<BooksRow key={book.id} book={book} />);
     const deleteButton = screen.getAllByText('Delete');
     await userEvent.click(deleteButton[0]);
-    expect(mockDispatch).toHaveBeenCalledTimes(2);
+    expect(mockDispatch).toHaveBeenCalledTimes(1);
     expect(mockDeleteBook).toHaveBeenCalledTimes(1);
-    expect(mockFetchBooks).toHaveBeenCalledTimes(1);
   });
 });

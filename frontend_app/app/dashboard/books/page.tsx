@@ -17,7 +17,6 @@ export default function Page() {
   useEffect(() => {
     dispatch(fetchBooks());
   }, []);
-  console.log('Books list :', bookList);
 
   return (
     <div>

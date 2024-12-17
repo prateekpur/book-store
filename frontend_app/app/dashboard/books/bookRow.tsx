@@ -18,14 +18,11 @@ export default function BooksRow({ book }: { book: Book }) {
 
   const handleDelete = useCallback(() => {
     dispatch(deleteBook(book.id));
-    dispatch(fetchBooks());
   }, [dispatch, book.id]);
 
   const handleUpdate = useCallback(() => {
     const updatedBook = { id: book.id, title: name, description };
-    console.log('bookrow update', updatedBook);
     dispatch(updateBook(updatedBook));
-    dispatch(fetchBooks());
     setEditing(false);
   }, [dispatch, book.id, name, description]);
 

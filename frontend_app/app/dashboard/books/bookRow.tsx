@@ -8,7 +8,7 @@ import { updateBook, deleteBook, fetchBooks } from '@/app/state/bookSlice';
 
 export default function BooksRow({ book }: { book: Book }) {
   const dispatch = useDispatch<AppDispatch>();
-  const [name, setName] = useState(book.name);
+  const [name, setName] = useState(book.title);
   const [description, setDescription] = useState(book.description);
   const [editing, setEditing] = useState(false);
 
@@ -18,14 +18,11 @@ export default function BooksRow({ book }: { book: Book }) {
 
   const handleDelete = useCallback(() => {
     dispatch(deleteBook(book.id));
-    dispatch(fetchBooks());
   }, [dispatch, book.id]);
 
   const handleUpdate = useCallback(() => {
-    const updatedBook = { id: book.id, name, description };
-    console.log('bookrow update', updatedBook);
+    const updatedBook = { id: book.id, title: name, description };
     dispatch(updateBook(updatedBook));
-    dispatch(fetchBooks());
     setEditing(false);
   }, [dispatch, book.id, name, description]);
 
@@ -60,7 +57,7 @@ export default function BooksRow({ book }: { book: Book }) {
               ) : (
                 <>
                   <h3 className="font-semibold">{book.id}</h3>
-                  <p className="text-gray-600">{book.name}</p>
+                  <p className="text-gray-600">{book.title}</p>
                   <p className="text-gray-600">{book.description}</p>
                   <button
                     className="bg-blue-500 text-white px-3 py-1 rounded"

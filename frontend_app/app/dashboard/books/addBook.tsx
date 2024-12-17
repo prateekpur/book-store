@@ -1,7 +1,6 @@
 'use client';
 
 import { FormEvent, useCallback, useState } from 'react';
-import { v4 as uuidv4 } from 'uuid';
 
 import { useAppDispatch } from '@/app/state/state-hooks';
 import { addBook, fetchBooks } from '@/app/state/bookSlice';
@@ -31,8 +30,7 @@ export default function AddBook() {
         <input
           type="text"
           value={name}
-          style={{ width: '300px', height: '40px' }}
-          className="w-full p-2 border rounded"
+          className="w-full p-2 border rounded  w-10 h-10 sm:w-20 sm:h-10 md:w-30 md:h-10 lg:w-40 lg:h-10"
           onChange={(e) => setName(e.target.value)}
           required
         />
@@ -40,9 +38,8 @@ export default function AddBook() {
       <div className="mb-4">
         <label className="block text-sm font-medium mb-1">Description</label>
         <input
-          style={{ width: '300px', height: '40px' }}
           value={description}
-          className="w-full p-2 border rounded"
+          className="w-full p-2 border rounded  w-10 h-10 sm:w-20 sm:h-20 md:w-30 md:h-30 lg:w-40 lg:h-60"
           onChange={(e) => setDescription(e.target.value)}
           required
         />

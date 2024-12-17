@@ -6,8 +6,6 @@ import * as ReactRedux from 'react-redux';
 
 import * as BookSlice from '@/app/state/bookSlice';
 import AddBook from './addBook';
-import BooksRow from './bookRow';
-import { Book } from '@/app/types';
 
 jest.mock('react-redux', () => ({
   useDispatch: jest.fn(),
@@ -15,8 +13,25 @@ jest.mock('react-redux', () => ({
 }));
 
 describe('Add Book component', () => {
-  it('renders with correct label', () => {
+  const mockDispatch = jest.fn();
+  const mockAddBook = jest.fn();
+  const mockFetchBooks = jest.fn();
+
+  beforeAll(() => {
+    jest.spyOn(ReactRedux, 'useDispatch').mockReturnValue(mockDispatch);
+    jest.spyOn(BookSlice, 'addBook').mockImplementation(mockAddBook);
+    jest.spyOn(BookSlice, 'fetchBooks').mockImplementation(mockFetchBooks);
+  });
+
+  beforeEach(() => {
     render(<AddBook />);
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it('renders with correct label', () => {
     expect(screen.getByText('Add New Item')).toBeInTheDocument();
     expect(screen.getByText('Title')).toBeInTheDocument();
     expect(screen.getByText('Description')).toBeInTheDocument();
@@ -24,13 +39,6 @@ describe('Add Book component', () => {
   });
 
   it('invokes useDispatch and addBook when add button is clicked', async () => {
-    const mockDispatch = jest.fn();
-    const mockAddBook = jest.fn();
-    const mockFetchBooks = jest.fn();
-    jest.spyOn(ReactRedux, 'useDispatch').mockReturnValue(mockDispatch);
-    jest.spyOn(BookSlice, 'addBook').mockImplementation(mockAddBook);
-    jest.spyOn(BookSlice, 'fetchBooks').mockImplementation(mockFetchBooks);
-    render(<AddBook />);
     const textbox = screen.getAllByRole('textbox');
     await userEvent.type(textbox[0], 'Book Name');
     await userEvent.type(textbox[1], 'Book Description');
@@ -39,5 +47,13 @@ describe('Add Book component', () => {
     expect(mockDispatch).toHaveBeenCalledTimes(2);
     expect(mockAddBook).toHaveBeenCalledTimes(1);
     expect(mockFetchBooks).toHaveBeenCalledTimes(1);
+  });
+
+  it('does not invoke useDispatch and addBook when add button is clicked with empty name and title', async () => {
+    const submitButton = screen.getByRole('button');
+    await userEvent.click(submitButton);
+    expect(mockDispatch).toHaveBeenCalledTimes(0);
+    expect(mockAddBook).toHaveBeenCalledTimes(0);
+    expect(mockFetchBooks).toHaveBeenCalledTimes(0);
   });
 });

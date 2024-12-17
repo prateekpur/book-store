@@ -12,16 +12,26 @@ jest.mock('react-redux', () => ({
   useSelector: jest.fn(),
 }));
 const book = { id: '1', title: '1', description: '1' };
+const mockUpdateBook = jest.fn();
+const mockDeleteBook = jest.fn();
+const mockDispatch = jest.fn();
+
+beforeAll(() => {
+  jest.spyOn(ReactRedux, 'useDispatch').mockReturnValue(mockDispatch);
+  jest.spyOn(BookSlice, 'updateBook').mockImplementation(mockUpdateBook);
+  jest.spyOn(BookSlice, 'deleteBook').mockImplementation(mockDeleteBook);
+});
+
+beforeEach(() => {
+  render(<BooksRow key={book.id} book={book} />);
+});
+
+afterEach(() => {
+  jest.clearAllMocks();
+});
 
 describe('BooksRow component', () => {
-  it('invokes useDispatch and updateBook when add button is clicked', async () => {
-    const mockDispatch = jest.fn();
-    const mockUpdateBook = jest.fn();
-    const mockFetchBooks = jest.fn();
-    jest.spyOn(ReactRedux, 'useDispatch').mockReturnValue(mockDispatch);
-    jest.spyOn(BookSlice, 'updateBook').mockImplementation(mockUpdateBook);
-    jest.spyOn(BookSlice, 'fetchBooks').mockImplementation(mockFetchBooks);
-    render(<BooksRow key={book.id} book={book} />);
+  it('invokes useDispatch and updateBook when book is updated', async () => {
     const editButton = screen.getAllByText('Edit');
     await userEvent.click(editButton[0]);
     const textbox = screen.getAllByRole('textbox');
@@ -33,14 +43,7 @@ describe('BooksRow component', () => {
     expect(mockUpdateBook).toHaveBeenCalledTimes(1);
   });
 
-  it('invokes useDispatch and deleteBook when add button is clicked', async () => {
-    const mockDispatch = jest.fn();
-    const mockDeleteBook = jest.fn();
-    const mockFetchBooks = jest.fn();
-    jest.spyOn(ReactRedux, 'useDispatch').mockReturnValue(mockDispatch);
-    jest.spyOn(BookSlice, 'deleteBook').mockImplementation(mockDeleteBook);
-    jest.spyOn(BookSlice, 'fetchBooks').mockImplementation(mockFetchBooks);
-    render(<BooksRow key={book.id} book={book} />);
+  it('invokes useDispatch and deleteBook when delete button is clicked', async () => {
     const deleteButton = screen.getAllByText('Delete');
     await userEvent.click(deleteButton[0]);
     expect(mockDispatch).toHaveBeenCalledTimes(1);

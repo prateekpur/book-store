@@ -14,7 +14,7 @@ export default function AddBook() {
   const handleSubmit = useCallback(
     (e: FormEvent) => {
       e.preventDefault();
-      const book = { name, description };
+      const book = { title: name, description };
       dispatch(addBook(book));
       dispatch(fetchBooks());
       setDescription('');

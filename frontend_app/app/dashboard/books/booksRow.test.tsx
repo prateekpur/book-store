@@ -5,14 +5,13 @@ import userEvent from '@testing-library/user-event';
 import * as ReactRedux from 'react-redux';
 
 import * as BookSlice from '@/app/state/bookSlice';
-import AddBook from './addBook';
 import BooksRow from './bookRow';
-import { Book } from '@/app/types';
 
 jest.mock('react-redux', () => ({
   useDispatch: jest.fn(),
   useSelector: jest.fn(),
 }));
+const book = { id: '1', title: '1', description: '1' };
 
 describe('BooksRow component', () => {
   it('invokes useDispatch and updateBook when add button is clicked', async () => {
@@ -22,7 +21,6 @@ describe('BooksRow component', () => {
     jest.spyOn(ReactRedux, 'useDispatch').mockReturnValue(mockDispatch);
     jest.spyOn(BookSlice, 'updateBook').mockImplementation(mockUpdateBook);
     jest.spyOn(BookSlice, 'fetchBooks').mockImplementation(mockFetchBooks);
-    const book = { id: '1', name: '1', description: '1' };
     render(<BooksRow key={book.id} book={book} />);
     const editButton = screen.getAllByText('Edit');
     await userEvent.click(editButton[0]);
@@ -43,7 +41,6 @@ describe('BooksRow component', () => {
     jest.spyOn(ReactRedux, 'useDispatch').mockReturnValue(mockDispatch);
     jest.spyOn(BookSlice, 'deleteBook').mockImplementation(mockDeleteBook);
     jest.spyOn(BookSlice, 'fetchBooks').mockImplementation(mockFetchBooks);
-    const book = { id: '1', name: '1', description: '1' };
     render(<BooksRow key={book.id} book={book} />);
     const deleteButton = screen.getAllByText('Delete');
     await userEvent.click(deleteButton[0]);

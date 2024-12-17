@@ -22,12 +22,12 @@ export const addBook = createAsyncThunk(
 
 export const updateBook = createAsyncThunk(
   'books/updateBook',
-  async (updatedPost: Book) => {
+  async (updatedBook: Book) => {
     const response = await axios.put<Book>(
-      `${API_URL}/${updatedPost.id}`,
-      updatedPost
+      `${API_URL}/${updatedBook.id}`,
+      updatedBook
     );
-    return response.data;
+    return updatedBook;
   }
 );
 
